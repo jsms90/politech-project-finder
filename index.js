@@ -29,18 +29,6 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 
-app.post('/webhook/', function (req, res) {
-    messaging_events = req.body.entry[0].messaging
-    for (i = 0; i < messaging_events.length; i++) {
-        event = req.body.entry[0].messaging[i]
-        sender = event.sender.id
-        if (event.message && event.message.text) {
-            text = event.message.text
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-        }
-    }
-    res.sendStatus(200)
-})
 
 var token = "EAAIXZAyl0LY0BAACWcBYw7umnEWwIqWl4FC49KsyZCXwKuPV6Sr2VVmW33x7jszqyavVvpGdD6YMQpsrrV88q9BZBdU95SpR6QqNCQeLVviDkXzl2dpCJEDEZBYjpZAJUfmGzafsgW80ZBAUbK12GB32v2ZBZCAdptOVLl2od7RlwAZDZD"
 
@@ -122,7 +110,7 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            if (text == 'Generic') {
+            if (text === 'Generic') {
                 sendTextMessage(sender, "Am I doing this?" + text.substring(0, 200))
                 sendGenericMessage(sender)
                 continue
