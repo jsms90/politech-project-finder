@@ -174,7 +174,7 @@ app.post('/webhook/', function (req, res) {
             continue
         }
         if (event.postback && event.postback.payload.includes('2')) {
-            secondQuestion(event, 2, hours)
+            thirdQuestion(event, 2, hours)
             continue
         }
         if (event.postback && event.postback.payload.includes('3')) {
