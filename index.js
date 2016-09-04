@@ -187,5 +187,5 @@ function sendButtonMessage(recipientId, buttons) {
       }
     }
   }; 
-
+  callSendAPI(messageData);
 };
