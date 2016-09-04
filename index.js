@@ -7,32 +7,32 @@ var questions = ["Hello Ed! I'm going to ask you some questions to find someone 
 var interests = [{
             type: "postback",
             title: "Academia",
-            payload: "ACADEMIA"
+            payload: "1ACADEMIA"
           },
           {
             type: "postback",
             title: "Education",
-            payload: "EDUCATION"
+            payload: "1EDUCATION"
           },
           {
             type: "postback",
             title: "Government",
-            payload: "GOVERNMENT"
+            payload: "1GOVERNMENT"
           }]
 var roles = [{
             type: "postback",
             title: "Project Manager",
-            payload: "PM"
+            payload: "2PM"
           },
           {
             type: "postback",
             title: "Developer",
-            payload: "DEVELOPER"
+            payload: "2DEVELOPER"
           },
           {
             type: "postback",
             title: "Designer",
-            payload: "DESIGNER"
+            payload: "2DESIGNER"
           }]
 
 
@@ -149,10 +149,11 @@ app.post('/webhook/', function (req, res) {
             }
             sendButtonMessage(sender, questions[0], interests)
         }
-        if (event.postback) {
+
+        if (event.postback && event.postback.payload.includes('1')) {
             secondQuestion(event)
         }
-        if (event.postback) {
+        if (event.postback && event.postback.payload.includes('2')) {
             thirdQuestion(event)
             continue
         }
