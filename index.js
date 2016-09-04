@@ -232,7 +232,7 @@ function secondQuestion(event) {
 
   // When a postback is called, we'll send a message back to the sender to 
   // let them know it was successful
-  sendButtonMessage(sender, question[1], roles);
+  sendButtonMessage(sender, questions[1], roles);
 }
 
 function thirdQuestion(event) {
