@@ -178,9 +178,10 @@ app.post('/webhook/', function (req, res) {
         if (event.postback && event.postback.payload.includes('3')) {
             sendTextMessage(sender, "Great. You should get in touch with Joe Bloggs!")
             continue
+        }
     }
     res.sendStatus(200)
-})
+});
 
 app.get('/db', function (request, response) {
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
