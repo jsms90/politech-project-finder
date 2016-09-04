@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var app = express()
 var pg = require('pg')
+var questions = ["Hello Ed! I'm going to ask you some questions to find someone who might be able to help you find a good project. Please choose a subject of interest", "What is your role?"]
 var interests = [{
             type: "postback",
             title: "Academia",
@@ -146,10 +147,11 @@ app.post('/webhook/', function (req, res) {
                 sendTextMessage(sender, "Hi Dave, this is Hal" + text.substring(0, 200))
                 continue
             }
-            sendButtonMessage(sender, interests)
+            sendButtonMessage(sender, questions[0], interests)
         }
         if (event.postback) {
             secondQuestion(event)
+            continue
             if (event.postback) {
 	            thirdQuestion(event)
 	            continue
@@ -173,7 +175,7 @@ app.get('/db', function (request, response) {
 
 });
 
-function sendButtonMessage(recipientId, buttons) {
+function sendButtonMessage(recipientId, question_text, buttons) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -183,7 +185,7 @@ function sendButtonMessage(recipientId, buttons) {
         type: "template",
         payload: {
           template_type: "button",
-          text: "Hello Ed! I'm going to ask you some questions to find someone who might be able to help you find a good project. Please choose a subject of interest",
+          text: question_text,
           buttons: buttons
         }
       }
@@ -231,7 +233,7 @@ function secondQuestion(event) {
 
   // When a postback is called, we'll send a message back to the sender to 
   // let them know it was successful
-  sendButtonMessage(sender, roles);
+  sendButtonMessage(sender, question[1], roles);
 }
 
 function thirdQuestion(event) {
