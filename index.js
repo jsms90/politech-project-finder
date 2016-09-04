@@ -3,6 +3,37 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var app = express()
 var pg = require('pg')
+var interests = [{
+            type: "postback",
+            title: "Academia",
+            payload: "ACADEMIA"
+          },
+          {
+            type: "postback",
+            title: "Education",
+            payload: "EDUCATION"
+          },
+          {
+            type: "postback",
+            title: "Government",
+            payload: "GOVERNMENT"
+          }]
+var role = [{
+            type: "postback",
+            title: "Project Manager",
+            payload: "PM"
+          },
+          {
+            type: "postback",
+            title: "Developer",
+            payload: "DEVELOPER"
+          },
+          {
+            type: "postback",
+            title: "Designer",
+            payload: "DESIGNER"
+          }]
+
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -111,6 +142,17 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
+            sendButtonMessage(sender, interests)
+
+
+
+
+
+
+
+
+
+
             if (text === 'Generic') {
                 sendTextMessage(sender, "Hi Dave, this is Hal" + text.substring(0, 200))
                 continue
@@ -137,3 +179,20 @@ app.get('/db', function (request, response) {
     });
   });
 });
+
+function sendButtonMessage(recipientId, buttons) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: "This is test text",
+          buttons: buttons
+        }
+      }
+    }
+  }; 
