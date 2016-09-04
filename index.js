@@ -3,7 +3,7 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var app = express()
 var pg = require('pg')
-var questions = ["Hello Ed! I'm going to ask you some questions to find someone who might be able to help you find a good project. Please choose a subject of interest", "What is your role?", "How many hours can you commit per week?"]
+var questions = ["Hello Ed! I'm going to ask you some questions to find someone who might be able to help you find a good project. Please choose a subject of interest", "What is your role?"]
 var interests = [{
             type: "postback",
             title: "Academia",
@@ -34,26 +34,7 @@ var roles = [{
             title: "Designer",
             payload: "2DESIGNER"
           }]
-var hours = [{
-            type: "postback",
-            title: "Less than 5",
-            payload: "3lessthan"
-          },
-          {
-            type: "postback",
-            title: "Between 5 and 10",
-            payload: "3between"
-          },
-          {
-            type: "postback",
-            title: "Between 10 and 20",
-            payload: "3lots"
-          }
-          {
-            type: "postback",
-            title: "Full time",
-            payload: "3fulltime"
-          }]
+
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -174,14 +155,11 @@ app.post('/webhook/', function (req, res) {
         }
         if (event.postback && event.postback.payload.includes('2')) {
             thirdQuestion(event)
-        }
-        if (event.postback && event.postback.payload.includes('3')) {
-            sendTextMessage(sender, "Great. You should get in touch with Joe Bloggs!")
             continue
         }
     }
     res.sendStatus(200)
-});
+})
 
 app.get('/db', function (request, response) {
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
@@ -272,5 +250,5 @@ function thirdQuestion(event) {
 
   // When a postback is called, we'll send a message back to the sender to 
   // let them know it was successful
-  sendButtonMessage(sender, questions[2], hours);
+  sendTextMessage(sender, "How much time can you commit?");
 }
