@@ -242,7 +242,7 @@ function callSendAPI(messageData) {
   });  
 }
 
-function secondQuestion(event, index, array) {
+function secondQuestion(event, index, myarr) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfPostback = event.timestamp;
@@ -256,7 +256,7 @@ function secondQuestion(event, index, array) {
 
   // When a postback is called, we'll send a message back to the sender to 
   // let them know it was successful
-  sendButtonMessage(sender, questions[index], array);
+  sendButtonMessage(sender, questions[index], myarr);
 }
 
 function thirdQuestion(event) {
