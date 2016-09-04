@@ -142,22 +142,11 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            sendButtonMessage(sender, interests)
-
-
-
-
-
-
-
-
-
-
             if (text === 'Generic') {
                 sendTextMessage(sender, "Hi Dave, this is Hal" + text.substring(0, 200))
                 continue
             }
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            sendButtonMessage(sender, interests)
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
