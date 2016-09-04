@@ -151,11 +151,10 @@ app.post('/webhook/', function (req, res) {
         }
         if (event.postback) {
             secondQuestion(event)
+        }
+        if (event.postback) {
+            thirdQuestion(event)
             continue
-            if (event.postback) {
-	            thirdQuestion(event)
-	            continue
-	        }
         }
     }
     res.sendStatus(200)
