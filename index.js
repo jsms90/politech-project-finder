@@ -149,8 +149,7 @@ app.post('/webhook/', function (req, res) {
             sendButtonMessage(sender, interests)
         }
         if (event.postback) {
-            text = JSON.stringify(event.postback)
-            receivedPostback(messagingEvent)
+            receivedPostback(event)
             continue
         }
     }
