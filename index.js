@@ -170,10 +170,10 @@ app.post('/webhook/', function (req, res) {
         }
 
         if (event.postback && event.postback.payload.includes('1')) {
-            secondQuestion(event)
+            secondQuestion(event, 1)
         }
         if (event.postback && event.postback.payload.includes('2')) {
-            secondQuestion(event)
+            secondQuestion(event, 2)
             console.log("anything")
         }
         if (event.postback && event.postback.payload.includes('3')) {
@@ -242,7 +242,7 @@ function callSendAPI(messageData) {
   });  
 }
 
-function secondQuestion(event) {
+function secondQuestion(event, index) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfPostback = event.timestamp;
@@ -256,7 +256,7 @@ function secondQuestion(event) {
 
   // When a postback is called, we'll send a message back to the sender to 
   // let them know it was successful
-  sendButtonMessage(sender, questions[1], roles);
+  sendButtonMessage(sender, questions[index], roles);
 }
 
 function thirdQuestion(event) {
