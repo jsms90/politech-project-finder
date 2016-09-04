@@ -41,13 +41,8 @@ var hours = [{
           },
           {
             type: "postback",
-            title: "Between 5 and 10",
+            title: "Between 5 and 15",
             payload: "3between"
-          },
-          {
-            type: "postback",
-            title: "Between 10 and 20",
-            payload: "3lots"
           },
           {
             type: "postback",
@@ -171,11 +166,9 @@ app.post('/webhook/', function (req, res) {
 
         if (event.postback && event.postback.payload.includes('1')) {
             secondQuestion(event, 1, roles)
-            continue
         }
         if (event.postback && event.postback.payload.includes('2')) {
             thirdQuestion(event, 2, hours)
-            continue
         }
         if (event.postback && event.postback.payload.includes('3')) {
             sendTextMessage(sender, "Great. You should get in touch with Joe Bloggs!")
