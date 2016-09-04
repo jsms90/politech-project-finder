@@ -171,10 +171,11 @@ app.post('/webhook/', function (req, res) {
 
         if (event.postback && event.postback.payload.includes('1')) {
             secondQuestion(event, 1, roles)
+            continue
         }
         if (event.postback && event.postback.payload.includes('2')) {
             secondQuestion(event, 2, hours)
-            console.log("anything")
+            continue
         }
         if (event.postback && event.postback.payload.includes('3')) {
             sendTextMessage(sender, "Great. You should get in touch with Joe Bloggs!")
