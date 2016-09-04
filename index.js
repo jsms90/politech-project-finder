@@ -181,7 +181,7 @@ function sendButtonMessage(recipientId, buttons) {
         type: "template",
         payload: {
           template_type: "button",
-          text: "This is test text",
+          text: "Hello Ed! I'm going to ask you some questions to find someone who might be able to help you find a good project. Please choose a subject of interest",
           buttons: buttons
         }
       }
