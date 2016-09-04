@@ -18,7 +18,7 @@ var interests = [{
             title: "Government",
             payload: "GOVERNMENT"
           }]
-var role = [{
+var roles = [{
             type: "postback",
             title: "Project Manager",
             payload: "PM"
@@ -149,8 +149,11 @@ app.post('/webhook/', function (req, res) {
             sendButtonMessage(sender, interests)
         }
         if (event.postback) {
-            receivedPostback(event)
-            continue
+            secondQuestion(event)
+            if (event.postback) {
+	            thirdQuestion(event)
+	            continue
+	        }
         }
     }
     res.sendStatus(200)
@@ -214,7 +217,7 @@ function callSendAPI(messageData) {
   });  
 }
 
-function receivedPostback(event) {
+function secondQuestion(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfPostback = event.timestamp;
@@ -228,5 +231,22 @@ function receivedPostback(event) {
 
   // When a postback is called, we'll send a message back to the sender to 
   // let them know it was successful
-  sendTextMessage(senderID, "Postback called");
+  sendButtonMessage(sender, roles);
+}
+
+function thirdQuestion(event) {
+  var senderID = event.sender.id;
+  var recipientID = event.recipient.id;
+  var timeOfPostback = event.timestamp;
+
+  // The 'payload' param is a developer-defined field which is set in a postback 
+  // button for Structured Messages. 
+  var payload = event.postback.payload;
+
+  console.log("Received postback for user %d and page %d with payload '%s' " + 
+    "at %d", senderID, recipientID, payload, timeOfPostback);
+
+  // When a postback is called, we'll send a message back to the sender to 
+  // let them know it was successful
+  sendTextMessage(sender, "How much time can you commit?");
 }
