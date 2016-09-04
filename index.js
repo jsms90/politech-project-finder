@@ -173,7 +173,8 @@ app.post('/webhook/', function (req, res) {
             secondQuestion(event)
         }
         if (event.postback && event.postback.payload.includes('2')) {
-            thirdQuestion(event)
+            secondQuestion(event)
+            console.log("anything")
         }
         if (event.postback && event.postback.payload.includes('3')) {
             sendTextMessage(sender, "Great. You should get in touch with Joe Bloggs!")
