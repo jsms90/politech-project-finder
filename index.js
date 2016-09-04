@@ -127,13 +127,15 @@ app.post('/webhook/', function (req, res) {
 })
 
 app.get('/db', function (request, response) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+  pg.connect('postgres://jbftyinjzqfsol:9KG1yyReBVmbbwm5tGQM819veq@ec2-23-21-71-9.compute-1.amazonaws.com:5432/dbkj8jn3qn2m67?ssl=true', function(err, client, done) {
+
     client.query('SELECT * FROM test_table', function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }
       else
-       { response.render('pages/db', {results: result.rows} ); }
+       {
+        response.send('Hello world, I am a chat bot' + result.rows[0].name) }
     });
   });
 });
