@@ -157,10 +157,6 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            if (text === 'Generic') {
-                sendTextMessage(sender, "Hi Dave, this is Hal" + text.substring(0, 200))
-                continue
-            }
             sendButtonMessage(sender, questions[0], interests)
         }
 
